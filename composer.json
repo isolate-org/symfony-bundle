@@ -29,7 +29,8 @@
         "phpunit/phpunit": "4.5.*",
         "symfony/framework-bundle": "~2.3",
         "symfony/finder": "~2.3",
-        "symfony/proxy-manager-bridge": "~2.3"
+        "symfony/proxy-manager-bridge": "~2.3",
+        "symfony/yaml": "~2.3"
     },
     "repositories": [
         {
