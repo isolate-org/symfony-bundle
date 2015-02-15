@@ -3,9 +3,9 @@
 namespace Isolate\Symfony\IsolateBundle\Tests\Functional;
 
 use Isolate\Symfony\IsolateBundle\Tests\Functional\app\AppKernel;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BundleTestCase extends KernelTestCase
+class BundleTestCase extends WebTestCase
 {
     protected static function createKernel(array $options = array())
     {
