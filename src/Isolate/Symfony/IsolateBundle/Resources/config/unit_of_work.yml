@@ -1,0 +1,39 @@
+services:
+  isolate.unit_of_work.entity.definition.collection:
+    class: Isolate\Symfony\IsolateBundle\Entity\DefinitionCollection
+    arguments:
+      - [] # replaced by EntityDefinitionCompilerPass
+    public: false
+
+  isolate.unit_of_work.object.snapshot_maker:
+    class: Isolate\UnitOfWork\Object\SnapshotMaker\Adapter\DeepCopy\SnapshotMaker
+    public: false
+
+  isolate.unit_of_work.object.recovery_point:
+    class: Isolate\UnitOfWork\Object\RecoveryPoint
+    public: false;
+
+  isolate.unit_of_work.object.registry:
+    class: Isolate\UnitOfWork\Object\IsolateRegistry
+    arguments:
+      - @isolate.unit_of_work.object.snapshot_maker
+      - @isolate.unit_of_work.object.recovery_point
+    public: false
+
+  isolate.unit_of_work.entity.information_point:
+    class: Isolate\UnitOfWork\Entity\IsolateInformationPoint
+    arguments:
+      - @isolate.unit_of_work.entity.definition.collection
+    public: false
+
+  isolate.unit_of_work.entity.comparer:
+    class: Isolate\UnitOfWork\Entity\IsolateComparer
+    public: false
+
+  isolate.unit_of_work:
+    class: Isolate\UnitOfWork\UnitOfWork
+    arguments:
+      - @isolate.unit_of_work.object.registry
+      - @isolate.unit_of_work.entity.information_point
+      - @isolate.unit_of_work.entity.comparer
+      - @event_dispatcher

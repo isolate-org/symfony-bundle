@@ -1,0 +1,56 @@
+{
+    "name": "isolate/symfony-bundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "description": "Symfony Isolate Bundle",
+    "authors": [
+        {
+            "name": "Norbert Orzechowicz",
+            "email": "norbert@orzechowicz.pl"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+          "": "src",
+          "Isolate\\Symfony\\IsolateBundle\\Tests": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/http-kernel": "~2.3",
+        "symfony/dependency-injection": "~2.3",
+        "symfony/config": "~2.3",
+        "doctrine/collections": "1.*",
+        "isolate/unit-of-work": "dev-master",
+        "isolate/lazy-objects": "dev-master",
+        "isolate/isolate": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.5.*",
+        "symfony/framework-bundle": "~2.3",
+        "symfony/finder": "~2.3",
+        "symfony/proxy-manager-bridge": "~2.3"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:isolate-org/unit-of-work.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@github.com:isolate-org/lazy-objects.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@github.com:isolate-org/isolate.git"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
