@@ -30,6 +30,8 @@ class LazyObjectsTest extends BundleTestCase
         $entity = new User("norbert@orzechowicz.pl");
 
         $proxy = static::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
+
+        $this->assertInstanceOf("Isolate\\LazyObjects\\WrappedObject", $proxy);
     }
 
     public function test_clearing_proxy_cache_during_cache_clear()
@@ -55,18 +57,6 @@ class LazyObjectsTest extends BundleTestCase
         $application->add(new CacheClearCommand());
 
         $command = $application->find('cache:clear');
-        return new CommandTester($command);
-    }
-
-    /**
-     * @return CommandTester
-     */
-    private function getCacheWarmupCommandTester()
-    {
-        $application = new Application(static::$kernel);
-        $application->add(new CacheWarmupCommand());
-
-        $command = $application->find('cache:warmup');
         return new CommandTester($command);
     }
 

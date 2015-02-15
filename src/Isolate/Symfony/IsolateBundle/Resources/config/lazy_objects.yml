@@ -9,13 +9,11 @@ services:
     class: Isolate\LazyObjects\Proxy\Adapter\OcramiusProxyManager\Factory\LazyObjectsFactory
     arguments:
       - @isolate.lazy_objects.wrapper.proxy.adapter.configuration
-    public: false
 
   isolate.lazy_objects.definition.collection:
     class: Isolate\Symfony\IsolateBundle\LazyObject\DefinitionCollection
     arguments:
       - [] # replaced by EntityLazyObjectDefinitionCompilerPass
-    public: false
 
   isolate.lazy_objects.wrapper.proxy.factory:
     class: Isolate\LazyObjects\Proxy\Adapter\OcramiusProxyManager\Factory
