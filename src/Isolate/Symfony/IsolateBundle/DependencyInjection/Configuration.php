@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('proxy_dir')->defaultValue('%kernel.cache_dir%/isolate/lazy_objects')->end()
+                        ->scalarNode('proxy_namespace')->defaultValue('Proxy')->end()
                     ->end()
                 ->end()
             ->end();

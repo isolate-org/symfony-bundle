@@ -13,7 +13,7 @@ class AppKernel extends Kernel
     {
         return [
             new FrameworkBundle(),
-            new IsolateBundle()
+            new IsolateBundle(),
         ];
     }
 
@@ -21,6 +21,7 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__ . '/config/config.yml');
     }
+
 
     public function getRootDir()
     {

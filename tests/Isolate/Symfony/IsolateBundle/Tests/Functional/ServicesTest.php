@@ -28,5 +28,9 @@ class ServicesTest extends BundleTestCase
             $kernelCacheDir . '/isolate/lazy_objects',
             self::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_dir')
         );
+        $this->assertSame(
+            'Proxy',
+            self::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_namespace')
+        );
     }
 }

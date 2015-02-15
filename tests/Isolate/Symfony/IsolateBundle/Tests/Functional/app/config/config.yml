@@ -2,7 +2,7 @@ framework:
     secret:        test
     csrf_protection:
         enabled: false
-    router:        { resource: "routing.yml" }
+    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
     validation:    { enabled: false, enable_annotations: false }
     test: ~
     default_locale: en
@@ -11,4 +11,10 @@ framework:
     profiler: { only_exceptions: false }
 
 services:
-    logger: { class: Psr\Log\NullLogger }
+    logger:
+        class: Psr\Log\NullLogger
+
+    test.lazy_object.factory.user:
+        class: Isolate\Symfony\IsolateBundle\Tests\Functional\Entity\LazyObject\UserFactory
+        tags:
+          - { name: isolate.lazy_object.definition.factory }
