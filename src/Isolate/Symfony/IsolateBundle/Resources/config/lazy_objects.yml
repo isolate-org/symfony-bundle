@@ -6,6 +6,8 @@ services:
 
   isolate.lazy_objects.wrapper.proxy.adapter.factory:
     class: Isolate\LazyObjects\Proxy\Adapter\OcramiusProxyManager\Factory\LazyObjectsFactory
+    arguments:
+      - @isolate.lazy_objects.wrapper.proxy.adapter.configuration
     public: false
 
   isolate.lazy_objects.definition.collection:
