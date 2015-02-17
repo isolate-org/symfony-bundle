@@ -5,6 +5,12 @@ services:
       - [] # replaced by EntityDefinitionCompilerPass
     public: false
 
+  isolate.unit_of_work.entity.definition.repository:
+    class: Isolate\UnitOfWork\Entity\Definition\Repository\InMemory
+    arguments:
+      - @isolate.unit_of_work.entity.definition.collection
+    public: false
+
   isolate.unit_of_work.object.snapshot_maker:
     class: Isolate\UnitOfWork\Object\SnapshotMaker\Adapter\DeepCopy\SnapshotMaker
     public: false
@@ -20,20 +26,36 @@ services:
       - @isolate.unit_of_work.object.recovery_point
     public: false
 
-  isolate.unit_of_work.entity.information_point:
-    class: Isolate\UnitOfWork\Entity\IsolateInformationPoint
+  isolate.unit_of_work.entity.identifier:
+    class: Isolate\UnitOfWork\Entity\IsolateIdentifier
     arguments:
-      - @isolate.unit_of_work.entity.definition.collection
+      - @isolate.unit_of_work.entity.definition.repository
+    public: false
+
+  isolate.unit_of_wokr.entity.change_builder:
+    class: Isolate\UnitOfWork\Entity\ChangeBuilder
+    arguments:
+      - @isolate.unit_of_work.entity.definition.repository
+      - @isolate.unit_of_work.entity.identifier
     public: false
 
   isolate.unit_of_work.entity.comparer:
     class: Isolate\UnitOfWork\Entity\IsolateComparer
+    arguments:
+      - @isolate.unit_of_work.entity.definition.repository
+    public: false
+
+  isolate.unit_of_work.command_bus:
+    class: Isolate\UnitOfWork\CommandBus\SilentBus
+    arguments:
+      - @isolate.unit_of_work.entity.definition.repository
     public: false
 
   isolate.unit_of_work:
     class: Isolate\UnitOfWork\UnitOfWork
     arguments:
       - @isolate.unit_of_work.object.registry
-      - @isolate.unit_of_work.entity.information_point
+      - @isolate.unit_of_work.entity.identifier
+      - @isolate.unit_of_wokr.entity.change_builder
       - @isolate.unit_of_work.entity.comparer
-      - @event_dispatcher
+      - @isolate.unit_of_work.command_bus

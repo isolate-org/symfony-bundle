@@ -4,6 +4,8 @@ namespace Isolate\Symfony\IsolateBundle\Tests\Functional\Entity;
 
 class User
 {
+    private $id;
+
     private $email;
 
     private $items;
@@ -15,6 +17,14 @@ class User
     {
         $this->email = $email;
         $this->items = [];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
