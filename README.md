@@ -1,0 +1,1 @@
+# Isolate Symfony Bundle
