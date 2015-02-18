@@ -8,6 +8,7 @@ use Isolate\Symfony\IsolateBundle\LazyObject\DefinitionCollection;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class GenerateLazyObjectProxyCommand extends ContainerAwareCommand
 {
@@ -24,9 +25,12 @@ class GenerateLazyObjectProxyCommand extends ContainerAwareCommand
         /* @var DefinitionCollection $lazyObjectDefinitions */
         /* @var LazyObjectsFactory $factory */
         /* @var Definition $definition */
-
         $lazyObjectDefinitions = $this->getContainer()->get('isolate.lazy_objects.definition.collection');
         $factory = $this->getContainer()->get('isolate.lazy_objects.wrapper.proxy.adapter.factory');
+        $proxyDir = $this->getContainer()->getParameter('isolate.lazy_objects.proxy_dir');
+        $fs = new Filesystem();
+        $fs->remove($proxyDir);
+        $fs->mkdir($proxyDir);
 
         foreach ($lazyObjectDefinitions as $definition) {
             $factory->createProxyClass((string) $definition->getClassName());
