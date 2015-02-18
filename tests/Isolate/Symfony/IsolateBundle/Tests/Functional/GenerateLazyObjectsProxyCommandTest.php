@@ -22,8 +22,13 @@ class GenerateLazyObjectsProxyCommandTest extends BundleTestCase
         $fs->remove($this->getProxyCacheDir());
         $fs->mkdir($this->getProxyCacheDir());
 
-        $this->getGeneraterProxiesCommandTester()->execute(array('command' => 'isolate:lazy-objects:generate:proxies'));
+        $tester = $this->getGeneraterProxiesCommandTester();
+        $tester->execute(array('command' => 'isolate:lazy-objects:generate:proxies'));
 
+        $this->assertSame(
+            PHP_EOL . "Proxy class generated for \"Isolate\\Symfony\\IsolateBundle\\Tests\\Functional\\Entity\\User\"" . PHP_EOL ,
+            $tester->getDisplay()
+        );
         $this->assertEquals(1, $this->getProxyClassesInCacheCount());
     }
 

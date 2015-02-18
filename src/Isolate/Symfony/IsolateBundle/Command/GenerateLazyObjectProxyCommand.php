@@ -30,6 +30,8 @@ class GenerateLazyObjectProxyCommand extends ContainerAwareCommand
 
         foreach ($lazyObjectDefinitions as $definition) {
             $factory->createProxyClass((string) $definition->getClassName());
+
+            $output->writeln(PHP_EOL . sprintf('<fg=green>Proxy class generated for "%s"</fg=green>', (string) $definition->getClassName()));
         }
     }
 }
