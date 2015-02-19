@@ -2,7 +2,8 @@
     "name": "isolate/symfony-bundle",
     "license": "MIT",
     "type": "symfony-bundle",
-    "description": "Symfony Isolate Bundle",
+    "description": "Isolate Symfony Bundle",
+    "keywords": ["isolate", "symfony", "bundle"],
     "authors": [
         {
             "name": "Norbert Orzechowicz",
