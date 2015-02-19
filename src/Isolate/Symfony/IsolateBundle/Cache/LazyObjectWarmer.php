@@ -15,7 +15,7 @@ final class LazyObjectWarmer extends CacheWarmer
     /**
      * @param string $proxyCacheDir
      */
-    function __construct($proxyCacheDir)
+    public function __construct($proxyCacheDir)
     {
         $this->proxyCacheDir = $proxyCacheDir;
     }

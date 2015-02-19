@@ -71,5 +71,4 @@ class DefinitionCollection extends ArrayCollection
             throw new \RuntimeException("Definition\\Factory needs to create Entity\\Definition instance.");
         }
     }
-
 }

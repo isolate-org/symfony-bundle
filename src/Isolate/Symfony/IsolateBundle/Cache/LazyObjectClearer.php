@@ -15,7 +15,7 @@ final class LazyObjectClearer implements CacheClearerInterface
     /**
      * @param string $proxyCacheDir
      */
-    function __construct($proxyCacheDir)
+    public function __construct($proxyCacheDir)
     {
         if (!file_exists($proxyCacheDir)) {
             throw new \InvalidArgumentException(sprintf("Lazy objects proxy cache dir \"%s\" does not exists.", $proxyCacheDir));
