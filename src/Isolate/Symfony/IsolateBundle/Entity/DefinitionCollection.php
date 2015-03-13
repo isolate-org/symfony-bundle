@@ -8,6 +8,9 @@ use Isolate\UnitOfWork\Entity\Definition;
 
 class DefinitionCollection extends ArrayCollection
 {
+    /**
+     * @param array $elements
+     */
     public function __construct(array $elements = array())
     {
         $definitions = [];

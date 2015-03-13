@@ -9,7 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Finder\Finder;
 
-class UnitOfWorkTest extends BundleTestCase
+/**
+ * Entity definitions used in this test case are created from factory
+ * registered in tests/Isolate/Symfony/IsolateBundle/Tests/Functional/app/config/config.yml
+ */
+class IsolateTest extends BundleTestCase
 {
     public function setUp()
     {
@@ -17,12 +21,15 @@ class UnitOfWorkTest extends BundleTestCase
         static::$kernel->boot();
     }
 
-    public function test_checking_if_can_wrap_class_that_has_definition()
+    public function test_persisting_entity_in_transaction_opened_by_persistence_context()
     {
         $entity = new User("norbert@orzechowicz.pl");
 
-        static::$kernel->getContainer()->get('isolate.unit_of_work')->register($entity);
+        $isolate = static::$kernel->getContainer()->get('isolate');
+        $transaction = $isolate->getContext('default')->openTransaction();
 
-        $this->assertTrue(static::$kernel->getContainer()->get('isolate.unit_of_work')->isRegistered($entity));
+        $transaction->persist($entity);
+
+        $this->assertTrue($transaction->contains($entity));
     }
 }

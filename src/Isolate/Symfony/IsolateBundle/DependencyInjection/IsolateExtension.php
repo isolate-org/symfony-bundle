@@ -29,5 +29,6 @@ class IsolateExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('lazy_objects.yml');
         $loader->load('unit_of_work.yml');
+        $loader->load('isolate.yml');
     }
 }

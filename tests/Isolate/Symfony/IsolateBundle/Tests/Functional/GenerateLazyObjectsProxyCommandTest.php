@@ -8,6 +8,10 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
+/**
+ * Lazy objects definitions used in this test case are created from factory
+ * registered in tests/Isolate/Symfony/IsolateBundle/Tests/Functional/app/config/config.yml
+ */
 class GenerateLazyObjectsProxyCommandTest extends BundleTestCase
 {
     public function setUp()
@@ -31,7 +35,6 @@ class GenerateLazyObjectsProxyCommandTest extends BundleTestCase
         );
         $this->assertEquals(1, $this->getProxyClassesInCacheCount());
     }
-
 
     /**
      * @return CommandTester

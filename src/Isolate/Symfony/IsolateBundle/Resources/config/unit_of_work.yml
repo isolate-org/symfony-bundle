@@ -1,3 +1,6 @@
+parameters:
+  isolate.unit_of_work.factory.class: Isolate\Symfony\IsolateBundle\Isolate\Factory
+
 services:
   isolate.unit_of_work.entity.definition.collection:
     class: Isolate\Symfony\IsolateBundle\Entity\DefinitionCollection
@@ -5,57 +8,8 @@ services:
       - [] # replaced by EntityDefinitionCompilerPass
     public: false
 
-  isolate.unit_of_work.entity.definition.repository:
-    class: Isolate\UnitOfWork\Entity\Definition\Repository\InMemory
+  isolate.unit_of_work.factory:
+    class: %isolate.unit_of_work.factory.class%
     arguments:
       - @isolate.unit_of_work.entity.definition.collection
     public: false
-
-  isolate.unit_of_work.object.snapshot_maker:
-    class: Isolate\UnitOfWork\Object\SnapshotMaker\Adapter\DeepCopy\SnapshotMaker
-    public: false
-
-  isolate.unit_of_work.object.recovery_point:
-    class: Isolate\UnitOfWork\Object\RecoveryPoint
-    public: false;
-
-  isolate.unit_of_work.object.registry:
-    class: Isolate\UnitOfWork\Object\IsolateRegistry
-    arguments:
-      - @isolate.unit_of_work.object.snapshot_maker
-      - @isolate.unit_of_work.object.recovery_point
-    public: false
-
-  isolate.unit_of_work.entity.identifier:
-    class: Isolate\UnitOfWork\Entity\IsolateIdentifier
-    arguments:
-      - @isolate.unit_of_work.entity.definition.repository
-    public: false
-
-  isolate.unit_of_wokr.entity.change_builder:
-    class: Isolate\UnitOfWork\Entity\ChangeBuilder
-    arguments:
-      - @isolate.unit_of_work.entity.definition.repository
-      - @isolate.unit_of_work.entity.identifier
-    public: false
-
-  isolate.unit_of_work.entity.comparer:
-    class: Isolate\UnitOfWork\Entity\IsolateComparer
-    arguments:
-      - @isolate.unit_of_work.entity.definition.repository
-    public: false
-
-  isolate.unit_of_work.command_bus:
-    class: Isolate\UnitOfWork\CommandBus\SilentBus
-    arguments:
-      - @isolate.unit_of_work.entity.definition.repository
-    public: false
-
-  isolate.unit_of_work:
-    class: Isolate\UnitOfWork\UnitOfWork
-    arguments:
-      - @isolate.unit_of_work.object.registry
-      - @isolate.unit_of_work.entity.identifier
-      - @isolate.unit_of_wokr.entity.change_builder
-      - @isolate.unit_of_work.entity.comparer
-      - @isolate.unit_of_work.command_bus

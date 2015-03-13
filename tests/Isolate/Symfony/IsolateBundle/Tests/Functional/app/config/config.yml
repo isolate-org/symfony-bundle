@@ -14,12 +14,12 @@ services:
     logger:
         class: Psr\Log\NullLogger
 
-    test.lazy_object.factory.user:
+    isolate.test.lazy_object.definition.factory.user:
         class: Isolate\Symfony\IsolateBundle\Tests\Functional\Entity\LazyObject\UserFactory
         tags:
           - { name: isolate.lazy_object.definition.factory }
 
-    test.unit_of_work.factory.user:
+    isolate.test.entity.definition.factory.user:
         class: Isolate\Symfony\IsolateBundle\Tests\Functional\Entity\Definition\UserFactory
         tags:
           - { name: isolate.entity.definition.factory }
