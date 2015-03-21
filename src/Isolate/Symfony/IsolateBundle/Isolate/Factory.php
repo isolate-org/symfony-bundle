@@ -10,7 +10,7 @@ use Isolate\UnitOfWork\Entity\IsolateComparer;
 use Isolate\UnitOfWork\Entity\IsolateIdentifier;
 use Isolate\UnitOfWork\Factory as UnitOfWorkFactory;
 use Isolate\UnitOfWork\Object\IsolateRegistry;
-use Isolate\UnitOfWork\Object\RecoveryPoint;
+use Isolate\UnitOfWork\Object\PropertyCloner;
 use Isolate\UnitOfWork\Object\SnapshotMaker\Adapter\DeepCopy\SnapshotMaker;
 use Isolate\UnitOfWork\UnitOfWork;
 
@@ -36,7 +36,7 @@ class Factory implements UnitOfWorkFactory
     {
         $definitionRepository = new InMemory($this->entityDefinitions);
         $snapshotMaker = new SnapshotMaker();
-        $recoveryPoint = new RecoveryPoint();
+        $recoveryPoint = new PropertyCloner();
         $objectRegistry = new IsolateRegistry($snapshotMaker, $recoveryPoint);
         $identifier = new IsolateIdentifier($definitionRepository);
         $changeBuilder = new ChangeBuilder($definitionRepository, $identifier);
