@@ -6,15 +6,16 @@ services:
   isolate.context.transaction.factory:
     class: %isolate.context.transaction.factory.class%
     public: false
+    arguments:
+        - @isolate.unit_of_work.factory
 
   isolate.context.factory:
     class: %isolate.context.factory.class%
     arguments:
-      - @isolate.unit_of_work.factory
-      - @isolate.context.transaction.factory
+        - @isolate.context.transaction.factory
     public: false
 
   isolate:
     class: Isolate\Isolate
     arguments:
-      - @isolate.context.factory
+        - @isolate.context.factory

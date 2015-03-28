@@ -4,16 +4,28 @@ namespace Isolate\Symfony\IsolateBundle\Isolate\PersistenceContext\Transaction;
 
 use Isolate\Symfony\IsolateBundle\Isolate\PersistenceContext\Transaction;
 use Isolate\PersistenceContext\Transaction\Factory as TransactionFactory;
-use Isolate\UnitOfWork\UnitOfWork;
+use Isolate\UnitOfWork\Factory as UOWFactory;
 
 class Factory implements TransactionFactory
 {
     /**
-     * @param UnitOfWork $unitOfWork
+     * @var UOWFactory
+     */
+    private $uowFactory;
+
+    /**
+     * @param UOWFactory $uowFactory
+     */
+    public function __construct(UOWFactory $uowFactory)
+    {
+        $this->uowFactory = $uowFactory;
+    }
+
+    /**
      * @return Transaction
      */
-    public function create(UnitOfWork $unitOfWork)
+    public function create()
     {
-        return new Transaction($unitOfWork);
+        return new Transaction($this->uowFactory->create());
     }
 }
