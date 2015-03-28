@@ -33,7 +33,8 @@
         "symfony/finder": "~2.3",
         "ocramius/proxy-manager": "~1.0",
         "symfony/proxy-manager-bridge": "~2.3",
-        "symfony/yaml": "~2.3"
+        "symfony/yaml": "~2.3",
+        "isolate/doctrine-bridge": "1.0.*@dev"
     },
     "config": {
         "bin-dir": "bin"

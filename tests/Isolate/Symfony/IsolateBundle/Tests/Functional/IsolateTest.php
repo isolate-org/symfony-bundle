@@ -17,15 +17,14 @@ class IsolateTest extends BundleTestCase
 {
     public function setUp()
     {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
+        self::bootKernel();
     }
 
     public function test_persisting_entity_in_transaction_opened_by_persistence_context()
     {
         $entity = new User("norbert@orzechowicz.pl");
 
-        $isolate = static::$kernel->getContainer()->get('isolate');
+        $isolate = self::$kernel->getContainer()->get('isolate');
         $transaction = $isolate->getContext('default')->openTransaction();
 
         $transaction->persist($entity);

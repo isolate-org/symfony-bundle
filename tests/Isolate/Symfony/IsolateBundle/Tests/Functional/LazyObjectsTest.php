@@ -16,13 +16,12 @@ class LazyObjectsTest extends BundleTestCase
 {
     public function setUp()
     {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
+        self::bootKernel();
     }
 
     public function test_lazy_objects_default_configuration()
     {
-        $kernelCacheDir = static::$kernel->getContainer()->getParameter('kernel.cache_dir');
+        $kernelCacheDir = self::$kernel->getContainer()->getParameter('kernel.cache_dir');
 
         $this->assertSame(
             $kernelCacheDir . '/isolate/lazy_objects',
@@ -38,7 +37,7 @@ class LazyObjectsTest extends BundleTestCase
     {
         $entity = new User("norbert@orzechowicz.pl");
 
-        $this->assertTrue(static::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->canWrap($entity));
+        $this->assertTrue(self::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->canWrap($entity));
     }
 
     public function test_wrapping_an_object()
@@ -53,13 +52,13 @@ class LazyObjectsTest extends BundleTestCase
     public function test_clearing_proxy_cache_during_cache_clear()
     {
         $entity = new User("norbert@orzechowicz.pl");
-        static::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
+        self::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
 
         $this->assertEquals(1, $this->getProxyClassesInCacheCount());
 
         $this->getCacheClearCommandTester()->execute(array('command' => 'cache:clear'));
 
-        static::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
+        self::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
 
         $this->assertEquals(0, $this->getProxyClassesInCacheCount());
     }
@@ -69,7 +68,7 @@ class LazyObjectsTest extends BundleTestCase
      */
     private function getCacheClearCommandTester()
     {
-        $application = new Application(static::$kernel);
+        $application = new Application(self::$kernel);
         $application->add(new CacheClearCommand());
 
         $command = $application->find('cache:clear');

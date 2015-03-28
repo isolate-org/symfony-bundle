@@ -9,17 +9,36 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
+    /**
+     * @var string
+     */
+    protected $configuration;
+
+    protected $requiredBundles;
+
+    /**
+     * @param string $environment
+     * @param bool $debug
+     * @param string $configuration
+     * @param array $bundles
+     */
+    public function __construct($environment, $debug, $configuration = 'config.yml', $bundles = array())
+    {
+        parent::__construct($environment, $debug);
+        $this->configuration = $configuration;
+        $this->requiredBundles = $bundles;
+    }
+
     public function registerBundles()
     {
-        return [
-            new FrameworkBundle(),
-            new IsolateBundle(),
-        ];
+        return count($this->requiredBundles)
+            ? $this->requiredBundles
+            : [new FrameworkBundle(), new IsolateBundle()];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/config/config.yml');
+        $loader->load(__DIR__ . '/config/' . $this->configuration);
     }
 
 
