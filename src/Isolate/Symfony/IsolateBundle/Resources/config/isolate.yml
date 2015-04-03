@@ -1,18 +1,22 @@
 parameters:
-  isolate.context.transaction.factory.class: Isolate\Symfony\IsolateBundle\Isolate\PersistenceContext\Transaction\Factory
+  isolate.transaction.factory.class: Isolate\Symfony\IsolateBundle\Isolate\PersistenceContext\Transaction\IsolateFactory
   isolate.context.factory.class: Isolate\Symfony\IsolateBundle\Isolate\PersistenceContext\Factory
 
 services:
-  isolate.context.transaction.factory:
-    class: %isolate.context.transaction.factory.class%
+  isolate.transaction.factory:
+    class: %isolate.transaction.factory.class%
     public: false
     arguments:
         - @isolate.unit_of_work.factory
 
+  isolate.transaction.factory.map:
+    class: Isolate\Symfony\IsolateBundle\Isolate\PersistenceContext\Transaction\FactoryMap
+
   isolate.context.factory:
     class: %isolate.context.factory.class%
     arguments:
-        - @isolate.context.transaction.factory
+        - @isolate.transaction.factory
+        - @isolate.transaction.factory.map
     public: false
 
   isolate:

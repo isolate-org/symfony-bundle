@@ -2,7 +2,7 @@ framework:
     secret:        test
     csrf_protection:
         enabled: false
-    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
+    router:        { resource: "%kernel.root_dir%/%kernel.test_suite%/routing.yml" }
     validation:    { enabled: false, enable_annotations: false }
     test: ~
     default_locale: en
@@ -10,9 +10,18 @@ framework:
         storage_id:     session.storage.mock_file
     profiler: { only_exceptions: false }
 
+isolate:
+    default_transaction_factory: isolate.transaction.factory
+    persistence_contexts:
+        dummy:
+            transaction_factory: isolate.test.transaction.dummy.factory
+
 services:
     logger:
         class: Psr\Log\NullLogger
+
+    isolate.test.transaction.dummy.factory:
+        class: Isolate\Symfony\IsolateBundle\Tests\Functional\Isolate\PersistenceContext\Transaction\DummyTransactionFactory
 
     isolate.test.lazy_object.definition.factory.user:
         class: Isolate\Symfony\IsolateBundle\Tests\Functional\Entity\LazyObject\UserFactory

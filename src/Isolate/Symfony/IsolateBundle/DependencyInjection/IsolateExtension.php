@@ -4,6 +4,7 @@ namespace Isolate\Symfony\IsolateBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -22,8 +23,12 @@ class IsolateExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('isolate.default_transaction_factory', $config['default_transaction_factory']);
+        $container->setParameter('isolate.persistence_contexts', $config['persistence_contexts']);
+
         $container->setParameter('isolate.lazy_objects.proxy_dir', $config['lazy_objects']['proxy_dir']);
         $container->setParameter('isolate.lazy_objects.proxy_namespace', $config['lazy_objects']['proxy_namespace']);
+
 
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

@@ -1,5 +1,5 @@
 parameters:
-  isolate.unit_of_work.factory.class: Isolate\Symfony\IsolateBundle\Isolate\Factory
+  isolate.unit_of_work.factory.class: Isolate\Symfony\IsolateBundle\Isolate\UnitOfWork\Factory
 
 services:
   isolate.unit_of_work.entity.definition.collection:

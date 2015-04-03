@@ -2,8 +2,10 @@
 
 namespace Isolate\Symfony\IsolateBundle;
 
+use Isolate\Symfony\IsolateBundle\DependencyInjection\Compiler\DoctrineBridgePass;
 use Isolate\Symfony\IsolateBundle\DependencyInjection\Compiler\EntityDefinitionCompilerPass;
 use Isolate\Symfony\IsolateBundle\DependencyInjection\Compiler\EntityLazyObjectDefinitionCompilerPass;
+use Isolate\Symfony\IsolateBundle\DependencyInjection\Compiler\IsolateContextFactoryPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -16,6 +18,8 @@ class IsolateBundle extends Bundle
 
         $container->addCompilerPass(new EntityDefinitionCompilerPass());
         $container->addCompilerPass(new EntityLazyObjectDefinitionCompilerPass());
+        $container->addCompilerPass(new IsolateContextFactoryPass());
+        $container->addCompilerPass(new DoctrineBridgePass());
     }
 
     public function boot()

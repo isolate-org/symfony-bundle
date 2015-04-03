@@ -8,15 +8,12 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Finder\Finder;
 
-/**
- * Lazy objects definitions used in this test case are created from factory
- * registered in tests/Isolate/Symfony/IsolateBundle/Tests/Functional/app/config/config.yml
- */
 class LazyObjectsTest extends BundleTestCase
 {
     public function setUp()
     {
-        self::bootKernel();
+        self::$kernel = $this->createKernel();
+        self::$kernel->boot();
     }
 
     public function test_lazy_objects_default_configuration()

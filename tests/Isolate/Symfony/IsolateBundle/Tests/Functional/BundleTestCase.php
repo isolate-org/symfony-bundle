@@ -2,25 +2,37 @@
 
 namespace Isolate\Symfony\IsolateBundle\Tests\Functional;
 
-use Isolate\Symfony\IsolateBundle\IsolateBundle;
-use Isolate\Symfony\IsolateBundle\Tests\Functional\app\AppKernel;
-use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\Kernel;
 
 class BundleTestCase extends WebTestCase
 {
-    protected static function createKernel(array $options = array())
+    protected static function deleteTmpDir($suite = 'Isolate')
     {
-        return new AppKernel("test", true, self::configuration(), self::bundles());
+        if (!file_exists($dir = sys_get_temp_dir().'/'.Kernel::VERSION.'/'.$suite)) {
+            return;
+        }
+
+        $fs = new Filesystem();
+        $fs->remove($dir);
     }
 
-    protected static function configuration()
+    protected static function createKernel(array $options = [])
     {
-        return "config.yml";
+        $class = self::getKernelClass();
+
+        $options = array_merge([
+            'suite' => "Isolate",
+        ], $options);
+
+        return new $class("test", true, $options['suite']);
     }
 
-    protected static function bundles()
+    protected static function getKernelClass()
     {
-        return [new FrameworkBundle(), new IsolateBundle()];
+        require_once __DIR__.'/app/AppKernel.php';
+
+        return 'Isolate\Symfony\IsolateBundle\Tests\Functional\app\AppKernel';
     }
 }
