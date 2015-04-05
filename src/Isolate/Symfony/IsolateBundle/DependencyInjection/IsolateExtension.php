@@ -29,8 +29,6 @@ class IsolateExtension extends Extension
         $container->setParameter('isolate.lazy_objects.proxy_dir', $config['lazy_objects']['proxy_dir']);
         $container->setParameter('isolate.lazy_objects.proxy_namespace', $config['lazy_objects']['proxy_namespace']);
 
-
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('lazy_objects.yml');
         $loader->load('unit_of_work.yml');
