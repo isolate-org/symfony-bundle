@@ -64,6 +64,7 @@ class AppKernel extends Kernel
     {
         return serialize(array($this->suite, $this->getEnvironment(), $this->isDebug()));
     }
+
     public function unserialize($str)
     {
         $a = unserialize($str);

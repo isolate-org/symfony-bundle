@@ -12,21 +12,20 @@ class LazyObjectsTest extends BundleTestCase
 {
     public function setUp()
     {
-        self::$kernel = $this->createKernel();
-        self::$kernel->boot();
+        $this->bootKernel();
     }
 
     public function test_lazy_objects_default_configuration()
     {
-        $kernelCacheDir = self::$kernel->getContainer()->getParameter('kernel.cache_dir');
+        $kernelCacheDir = static::$kernel->getContainer()->getParameter('kernel.cache_dir');
 
         $this->assertSame(
             $kernelCacheDir . '/isolate/lazy_objects',
-            self::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_dir')
+            static::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_dir')
         );
         $this->assertSame(
             'Proxy',
-            self::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_namespace')
+            static::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_namespace')
         );
     }
 
@@ -34,7 +33,7 @@ class LazyObjectsTest extends BundleTestCase
     {
         $entity = new User("norbert@orzechowicz.pl");
 
-        $this->assertTrue(self::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->canWrap($entity));
+        $this->assertTrue(static::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->canWrap($entity));
     }
 
     public function test_wrapping_an_object()
@@ -49,13 +48,13 @@ class LazyObjectsTest extends BundleTestCase
     public function test_clearing_proxy_cache_during_cache_clear()
     {
         $entity = new User("norbert@orzechowicz.pl");
-        self::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
+        static::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
 
         $this->assertEquals(1, $this->getProxyClassesInCacheCount());
 
-        $this->getCacheClearCommandTester()->execute(array('command' => 'cache:clear'));
+        $this->getCacheClearCommandTester()->execute(['command' => 'cache:clear']);
 
-        self::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
+        static::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
 
         $this->assertEquals(0, $this->getProxyClassesInCacheCount());
     }
@@ -65,7 +64,7 @@ class LazyObjectsTest extends BundleTestCase
      */
     private function getCacheClearCommandTester()
     {
-        $application = new Application(self::$kernel);
+        $application = new Application(static::$kernel);
         $application->add(new CacheClearCommand());
 
         $command = $application->find('cache:clear');

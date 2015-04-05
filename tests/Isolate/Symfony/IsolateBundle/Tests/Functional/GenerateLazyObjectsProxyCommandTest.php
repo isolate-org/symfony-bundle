@@ -12,8 +12,7 @@ class GenerateLazyObjectsProxyCommandTest extends BundleTestCase
 {
     public function setUp()
     {
-        self::$kernel = $this->createKernel();
-        self::$kernel->boot();
+        $this->bootKernel();
     }
 
     public function test_clearing_proxy_cache_during_cache_clear()
@@ -37,7 +36,7 @@ class GenerateLazyObjectsProxyCommandTest extends BundleTestCase
      */
     private function getGenerateProxiesCommandTester()
     {
-        $application = new Application(self::$kernel);
+        $application = new Application(static::$kernel);
         $application->add(new GenerateLazyObjectProxyCommand());
 
         $command = $application->find('isolate:lazy-objects:generate:proxies');

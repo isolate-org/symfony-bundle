@@ -20,13 +20,15 @@ class BundleTestCase extends WebTestCase
 
     protected static function createKernel(array $options = [])
     {
-        $class = self::getKernelClass();
+        if (null === static::$class) {
+            static::$class = static::getKernelClass();
+        }
 
         $options = array_merge([
             'suite' => "Isolate",
         ], $options);
 
-        return new $class("test", true, $options['suite']);
+        return new static::$class("test", true, $options['suite']);
     }
 
     protected static function getKernelClass()
