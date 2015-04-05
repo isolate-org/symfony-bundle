@@ -7,7 +7,7 @@ use Isolate\Symfony\IsolateBundle\Isolate\PersistenceContext\Transaction;
 use Isolate\PersistenceContext\Transaction\Factory as TransactionFactory;
 use Isolate\UnitOfWork\Factory as UOWFactory;
 
-class Factory implements TransactionFactory
+class IsolateFactory implements TransactionFactory
 {
     /**
      * @var UOWFactory

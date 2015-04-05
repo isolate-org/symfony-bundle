@@ -1,0 +1,37 @@
+framework:
+    secret:        test
+    csrf_protection:
+        enabled: false
+    router:        { resource: "%kernel.root_dir%/%kernel.test_suite%/routing.yml" }
+    validation:    { enabled: false, enable_annotations: false }
+    test: ~
+    default_locale: en
+    session:
+        storage_id:     session.storage.mock_file
+    profiler: { only_exceptions: false }
+
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        host: 127.0.0.1
+        port: null
+        dbname: null
+        user: root
+        password: null
+        charset:  UTF8
+        path:     "%kernel.cache_dir%/data.db"
+    orm:
+        default_entity_manager: doctrine_orm
+        entity_managers:
+            doctrine_orm:
+                connection: default
+
+isolate:
+    default_transaction_factory: isolate.transaction.factory
+    persistence_contexts:
+        doctrine_orm:
+            transaction_factory: isolate.doctrine.transaction.factory
+
+services:
+    logger:
+        class: Psr\Log\NullLogger

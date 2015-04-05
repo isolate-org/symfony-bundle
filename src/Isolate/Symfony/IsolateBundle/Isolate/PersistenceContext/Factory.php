@@ -7,20 +7,28 @@ use Isolate\PersistenceContext\Factory as ContextFactory;
 use Isolate\PersistenceContext\Name;
 use Isolate\PersistenceContext\Transaction\Factory as TransactionFactory;
 use Isolate\PersistenceContext\IsolateContext;
+use Isolate\Symfony\IsolateBundle\Isolate\PersistenceContext\Transaction\FactoryMap;
 
 class Factory implements ContextFactory
 {
     /**
      * @var TransactionFactory
      */
-    private $transactionFactory;
+    private $defaultTransactionFactory;
 
     /**
-     * @param TransactionFactory $transactionFactory
+     * @var FactoryMap
      */
-    public function __construct(TransactionFactory $transactionFactory)
+    private $factoryMap;
+
+    /**
+     * @param TransactionFactory $defaultTransactionFactory
+     * @param FactoryMap $factoryMap
+     */
+    public function __construct(TransactionFactory $defaultTransactionFactory, FactoryMap $factoryMap)
     {
-        $this->transactionFactory = $transactionFactory;
+        $this->defaultTransactionFactory = $defaultTransactionFactory;
+        $this->factoryMap = $factoryMap;
     }
 
     /**
@@ -29,6 +37,10 @@ class Factory implements ContextFactory
      */
     public function create(Name $name)
     {
-        return new IsolateContext($name, $this->transactionFactory);
+        $factory = $this->factoryMap->hasFactory($name)
+            ? $this->factoryMap->getFactory($name)
+            : $this->defaultTransactionFactory;
+
+        return new IsolateContext($name, $factory);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Isolate\Symfony\IsolateBundle\Isolate;
+namespace Isolate\Symfony\IsolateBundle\Isolate\UnitOfWork;
 
 use Isolate\Symfony\IsolateBundle\Entity\DefinitionCollection;
 use Isolate\UnitOfWork\CommandBus\SilentBus;

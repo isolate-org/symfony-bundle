@@ -8,16 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Finder\Finder;
 
-/**
- * Lazy objects definitions used in this test case are created from factory
- * registered in tests/Isolate/Symfony/IsolateBundle/Tests/Functional/app/config/config.yml
- */
 class LazyObjectsTest extends BundleTestCase
 {
     public function setUp()
     {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
+        $this->bootKernel();
     }
 
     public function test_lazy_objects_default_configuration()
@@ -26,11 +21,11 @@ class LazyObjectsTest extends BundleTestCase
 
         $this->assertSame(
             $kernelCacheDir . '/isolate/lazy_objects',
-            self::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_dir')
+            static::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_dir')
         );
         $this->assertSame(
             'Proxy',
-            self::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_namespace')
+            static::$kernel->getContainer()->getParameter('isolate.lazy_objects.proxy_namespace')
         );
     }
 
@@ -57,7 +52,7 @@ class LazyObjectsTest extends BundleTestCase
 
         $this->assertEquals(1, $this->getProxyClassesInCacheCount());
 
-        $this->getCacheClearCommandTester()->execute(array('command' => 'cache:clear'));
+        $this->getCacheClearCommandTester()->execute(['command' => 'cache:clear']);
 
         static::$kernel->getContainer()->get('isolate.lazy_objects.wrapper')->wrap($entity);
 

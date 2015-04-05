@@ -22,6 +22,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('default_transaction_factory')->defaultValue('isolate.transaction.factory')->end()
+                ->append($this->getContextsNode())
                 ->arrayNode('lazy_objects')
                     ->addDefaultsIfNotSet()
                     ->children()
@@ -32,5 +34,20 @@ class Configuration implements ConfigurationInterface
             ->end();
 
         return $treeBuilder;
+    }
+
+    public function getContextsNode()
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root('persistence_contexts');
+
+        $node
+            ->useAttributeAsKey('name')
+            ->prototype('array')
+            ->children()
+                ->scalarNode('transaction_factory')->end()
+            ->end();
+
+        return $node;
     }
 }

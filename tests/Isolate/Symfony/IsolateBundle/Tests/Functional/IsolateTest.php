@@ -3,22 +3,12 @@
 namespace Isolate\Symfony\IsolateBundle\Tests\Functional;
 
 use Isolate\Symfony\IsolateBundle\Tests\Functional\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Command\CacheClearCommand;
-use Symfony\Bundle\FrameworkBundle\Command\CacheWarmupCommand;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Finder\Finder;
 
-/**
- * Entity definitions used in this test case are created from factory
- * registered in tests/Isolate/Symfony/IsolateBundle/Tests/Functional/app/config/config.yml
- */
 class IsolateTest extends BundleTestCase
 {
     public function setUp()
     {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
+        $this->bootKernel();
     }
 
     public function test_persisting_entity_in_transaction_opened_by_persistence_context()
@@ -31,5 +21,16 @@ class IsolateTest extends BundleTestCase
         $transaction->persist($entity);
 
         $this->assertTrue($transaction->contains($entity));
+    }
+
+    public function test_creating_transactions_for_specific_contexts_with_specific_factories()
+    {
+        $isolate = static::$kernel->getContainer()->get('isolate');
+        $transaction = $isolate->getContext('dummy')->openTransaction();
+
+        $this->assertInstanceOf(
+            'Isolate\Symfony\IsolateBundle\Tests\Functional\Isolate\PersistenceContext\Transaction\DummyTransaction',
+            $transaction
+        );
     }
 }
