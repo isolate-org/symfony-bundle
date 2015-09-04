@@ -1,9 +1,9 @@
 parameters:
-  isolate.unit_of_work.factory.class: Isolate\Symfony\IsolateBundle\Isolate\UnitOfWork\Factory
+  isolate.unit_of_work.factory.class: Isolate\Framework\UnitOfWork\Factory
 
 services:
   isolate.unit_of_work.entity.definition.collection:
-    class: Isolate\Symfony\IsolateBundle\Entity\DefinitionCollection
+    class: Isolate\Framework\UnitOfWork\Entity\DefinitionCollection
     arguments:
       - [] # replaced by EntityDefinitionCompilerPass
     public: false

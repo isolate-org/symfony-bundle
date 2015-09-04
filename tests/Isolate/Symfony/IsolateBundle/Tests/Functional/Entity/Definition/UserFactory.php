@@ -2,7 +2,7 @@
 
 namespace Isolate\Symfony\IsolateBundle\Tests\Functional\Entity\Definition;
 
-use Isolate\Symfony\IsolateBundle\Entity\Definition\Factory;
+use Isolate\Framework\UnitOfWork\Entity\Definition\Factory;
 use Isolate\UnitOfWork\Entity\ClassName;
 use Isolate\UnitOfWork\Entity\Definition;
 

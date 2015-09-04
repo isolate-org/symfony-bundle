@@ -11,7 +11,7 @@ services:
       - @isolate.lazy_objects.wrapper.proxy.adapter.configuration
 
   isolate.lazy_objects.definition.collection:
-    class: Isolate\Symfony\IsolateBundle\LazyObject\DefinitionCollection
+    class: Isolate\Framework\LazyObjects\DefinitionCollection
     arguments:
       - [] # replaced by EntityLazyObjectDefinitionCompilerPass
 
