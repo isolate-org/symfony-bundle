@@ -20,6 +20,6 @@ If you have any problems or questions your can always contact us on Twitter, jus
 
 All Isolate components are released under [MIT license]
 
-[Documentation]: http://docs.isolate-project.org/en/latest/integration/symfony-bundle/index.html
+[Documentation]: http://docs.isolate-project.org/en/latest/extensions/symfony/installation-and-configuration/index.html
 [@isolate_php]: https://twitter.com/isolate_php
 [MIT license]: LICENSE
