@@ -12,6 +12,9 @@ install:
   - copy php.ini-production php.ini
   - echo date.timezone="UTC" >> php.ini
   - echo extension=php_curl.dll >> php.ini
+  - echo extension=php_pdo_sqlite.dll >> php.ini
+  - echo extension=php_intl.dll >> php.ini
+  - echo extension=php_apc.dll
   - echo extension_dir=ext >> php.ini
   - SET PATH=C:\tools\php;%PATH%
   - cd c:\projects\isolate\symfony-bundle
