@@ -1,6 +1,7 @@
 # Isolate Symfony Bundle
 
 [![Build Status](https://travis-ci.org/isolate-org/symfony-bundle.svg?branch=master)](https://travis-ci.org/isolate-org/symfony-bundle)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/wv0dx9ob32pabbg4/branch/master?svg=true)](https://ci.appveyor.com/project/norzechowicz/symfony-bundle/branch/master)
 [![Latest Stable Version](https://poser.pugx.org/isolate/symfony-bundle/v/stable.svg)](https://packagist.org/packages/isolate/symfony-bundle)
 [![Total Downloads](https://poser.pugx.org/isolate/symfony-bundle/downloads.svg)](https://packagist.org/packages/isolate/symfony-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/isolate/symfony-bundle/v/unstable.svg)](https://packagist.org/packages/isolate/symfony-bundle)
