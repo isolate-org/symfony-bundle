@@ -9,7 +9,7 @@ services:
     public: false
 
   isolate.unit_of_work.factory:
-    class: %isolate.unit_of_work.factory.class%
+    class: '%isolate.unit_of_work.factory.class%'
     arguments:
-      - @isolate.unit_of_work.entity.definition.collection
+      - '@isolate.unit_of_work.entity.definition.collection'
     public: false
