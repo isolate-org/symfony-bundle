@@ -2,13 +2,13 @@ services:
   isolate.lazy_objects.wrapper.proxy.adapter.configuration:
     class: ProxyManager\Configuration
     calls:
-      - ["setProxiesTargetDir", [%isolate.lazy_objects.proxy_dir%]]
-      - ["setProxiesNamespace", [%isolate.lazy_objects.proxy_namespace%]]
+      - ["setProxiesTargetDir", ['%isolate.lazy_objects.proxy_dir%']]
+      - ["setProxiesNamespace", ['%isolate.lazy_objects.proxy_namespace%']]
 
   isolate.lazy_objects.wrapper.proxy.adapter.factory:
     class: Isolate\LazyObjects\Proxy\Adapter\OcramiusProxyManager\Factory\LazyObjectsFactory
     arguments:
-      - @isolate.lazy_objects.wrapper.proxy.adapter.configuration
+      - '@isolate.lazy_objects.wrapper.proxy.adapter.configuration'
 
   isolate.lazy_objects.definition.collection:
     class: Isolate\Framework\LazyObjects\DefinitionCollection
@@ -18,25 +18,25 @@ services:
   isolate.lazy_objects.wrapper.proxy.factory:
     class: Isolate\LazyObjects\Proxy\Adapter\OcramiusProxyManager\Factory
     arguments:
-      - @isolate.lazy_objects.wrapper.proxy.adapter.factory
+      - '@isolate.lazy_objects.wrapper.proxy.adapter.factory'
     public: false
 
   isolate.lazy_objects.wrapper:
     class: Isolate\LazyObjects\Wrapper
     arguments:
-      - @isolate.lazy_objects.wrapper.proxy.factory
-      - @isolate.lazy_objects.definition.collection
+      - '@isolate.lazy_objects.wrapper.proxy.factory'
+      - '@isolate.lazy_objects.definition.collection'
 
   isolate.lazy_objects.cache.clearer:
     class: Isolate\Symfony\IsolateBundle\Cache\LazyObjectClearer
     arguments:
-      - %isolate.lazy_objects.proxy_dir%
+      - '%isolate.lazy_objects.proxy_dir%'
     tags:
       - { name: kernel.cache_clearer }
 
   isolate.lazy_objects.cache.warmer:
     class: Isolate\Symfony\IsolateBundle\Cache\LazyObjectWarmer
     arguments:
-      - %isolate.lazy_objects.proxy_dir%
+      - '%isolate.lazy_objects.proxy_dir%'
     tags:
       - { name: kernel.cache_warmer }
