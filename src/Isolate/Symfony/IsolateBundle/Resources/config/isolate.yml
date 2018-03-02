@@ -4,22 +4,22 @@ parameters:
 
 services:
   isolate.transaction.factory:
-    class: %isolate.transaction.factory.class%
+    class: '%isolate.transaction.factory.class%'
     public: false
     arguments:
-        - @isolate.unit_of_work.factory
+        - '@isolate.unit_of_work.factory'
 
   isolate.transaction.factory.map:
     class: Isolate\Framework\PersistenceContext\Transaction\FactoryMap
 
   isolate.context.factory:
-    class: %isolate.context.factory.class%
+    class: '%isolate.context.factory.class%'
     arguments:
-        - @isolate.transaction.factory
-        - @isolate.transaction.factory.map
+        - '@isolate.transaction.factory'
+        - '@isolate.transaction.factory.map'
     public: false
 
   isolate:
     class: Isolate\Isolate
     arguments:
-        - @isolate.context.factory
+        - '@isolate.context.factory'
